@@ -387,7 +387,8 @@ function process_way(profile, way, result, relations)
     -- prefetch tags
     highway = way:get_value_by_key('highway'),
     bridge = way:get_value_by_key('bridge'),
-    route = way:get_value_by_key('route')
+    route = way:get_value_by_key('route'),
+    safety = way:get_value_by_key('safety')
   }
 
   -- perform an quick initial check and abort if the way is

@@ -417,12 +417,15 @@ function WayHandlers.penalties(profile,way,result,data)
   local forward_penalty = math.min(service_penalty, width_penalty, alternating_penalty, sideroad_penalty)
   local backward_penalty = math.min(service_penalty, width_penalty, alternating_penalty, sideroad_penalty)
 
+  local safety_value = tonumber(data.safety) / 10.0
+  -- print(safety_value)
+
   if profile.properties.weight_name == 'routability' then
     if result.forward_speed > 0 then
-      result.forward_rate = (result.forward_speed * forward_penalty) / 3.6
+      result.forward_rate = ((result.forward_speed * forward_penalty) / 3.6) * (safety_value ^ 3)
     end
     if result.backward_speed > 0 then
-      result.backward_rate = (result.backward_speed * backward_penalty) / 3.6
+      result.backward_rate = ((result.backward_speed * backward_penalty) / 3.6) * (safety_value ^ 3)
     end
     if result.duration > 0 then
       result.weight = result.duration / forward_penalty
